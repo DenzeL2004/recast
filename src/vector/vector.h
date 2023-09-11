@@ -11,25 +11,20 @@ class Vector
 
     public:
     
-        Vector (double x, double y): x_(x), y_(y) {}
-        Vector (const Vector &src): x_(src.x_), y_(src.y_){}
+        Vector (double x, double y, double z): x_(x), y_(y), z_(z) {}
+        Vector (const Vector &src): x_(src.x_), y_(src.y_), z_(src.z_) {}
 
         ~Vector ()
         {
             x_ = NAN;
             y_ = NAN;
+            z_ = NAN;
         }
 
-        double GetX() const
-        {
-            return x_;
-        }
+        double GetX() const { return x_; }
+        double GetY() const { return y_; }
+        double GetZ() const { return z_; }
 
-
-        double GetY() const
-        {
-            return y_;
-        }
 
         Vector& operator  = (const Vector &other);
         Vector& operator += (const Vector &other);
@@ -37,8 +32,8 @@ class Vector
         Vector& operator *= (const double scale);
         Vector& operator /= (const double scale);
 
-        Vector Normalization () const;
-        Vector Orthogonality () const;
+        Vector Normalization    () const;
+        Vector Orthogonality2xy () const;
         
         double ScalarProduct (const Vector &vec) const;
         double Corner        (const Vector &vec) const;
@@ -48,6 +43,7 @@ class Vector
     private:     
         double x_;
         double y_;
+        double z_;
 };
 
 Vector operator + (const Vector &vec1, const Vector &vec2);
@@ -70,12 +66,13 @@ enum Vector_errors
 
 //===================================================================
 
-const Dot Null_dot = Vector(0.0, 0.0);
+const Dot Null_dot = Vector(0.0, 0.0, 0.0);
 
-const Vector Unit_vector_x = Vector(1.0, 0.0);
-const Vector Unit_vector_y = Vector(0.0, 1.0);
+const Vector Unit_vector_x = Vector(1.0, 0.0, 0.0);
+const Vector Unit_vector_y = Vector(0.0, 1.0, 0.0);
+const Vector Unit_vector_y = Vector(0.0, 0.0, 1.0);
 
-const Vector Err_vector    = Vector(NAN, NAN);
+const Vector Err_vector    = Vector(NAN, NAN, NAN);
 
 
 #endif //#endif _VECTOR_H_

@@ -6,6 +6,8 @@ Vector& Vector::operator = (const Vector &other)
 {
     this->x_ = other.x_;
     this->y_ = other.y_;
+    this->z_ = other.z_;
+
     return *this;
 }
 
@@ -15,6 +17,8 @@ Vector& Vector::operator += (const Vector &other)
 {
     this->x_ += other.x_;
     this->y_ += other.y_;
+    this->z_ += other.z_;
+
     return *this;
 }
 
@@ -24,6 +28,8 @@ Vector& Vector::operator -= (const Vector &other)
 {
     this->x_ -= other.x_;
     this->y_ -= other.y_;
+    this->z_ -= other.z_;
+
     return *this;
 }
 
@@ -33,6 +39,8 @@ Vector& Vector::operator *= (const double scale)
 {
     this->x_ *= scale;
     this->y_ *= scale;
+    this->z_ *= scale;
+
     return *this;
 }
 
@@ -42,6 +50,8 @@ Vector& Vector::operator /= (const double scale)
 {
     this->x_ /= scale;
     this->y_ /= scale;
+    this->z_ /= scale;
+
     return *this;
 }
 
@@ -49,9 +59,10 @@ Vector& Vector::operator /= (const double scale)
 
 double Vector::Len () const
 {
-    double len = (this->x_ * this->x_) + 
-                 (this->y_ * this->y_);
-
+    double len = this->x_ * this->x_ + 
+                 this->y_ * this->y_ +
+                 this->z_ * this->z_;
+    
     len = sqrt(len);
 
     return len;
@@ -64,7 +75,7 @@ Vector Vector::Normalization () const
 {
     double len = this->Len();
 
-    Vector res(this->x_ / len, this->y_ / len);
+    Vector res(this->x_ / len, this->y_ / len, this->z_ / len);
 
     return res;
 }
@@ -72,9 +83,9 @@ Vector Vector::Normalization () const
 
 //=======================================================================
 
-Vector Vector::Orthogonality  () const
+Vector Vector::Orthogonality2xy  () const
 {
-    Vector res(this->GetY() * -1.0, this->GetX());
+    Vector res(this->GetY() * -1.0, this->GetX(), this->GetZ());
 
     return res;
 }

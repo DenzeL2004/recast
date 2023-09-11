@@ -80,7 +80,7 @@ void Plane::DrawVector(sf::RenderWindow &window,
 {
 
     Vector norm_res =   dir.Normalization();
-    Vector norm_ort =   norm_res.Orthogonality().Normalization(); 
+    Vector norm_ort =   norm_res.Orthogonality2xy().Normalization(); 
     
     Vector tendril1 = (norm_ort + norm_res) * Len_tendril;
     Vector tendril2 = (norm_res - norm_ort) * Len_tendril;

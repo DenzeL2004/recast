@@ -10,28 +10,9 @@ const uint32_t Default_plane_weight = (uint32_t)((double)Default_window_weight /
 const double X_plane_start = 10.0;
 const double Y_plane_start = 10.0;
 
-const Dot Left_corner  = Vector(X_plane_start, Y_plane_start);
-const Dot Right_corner = Vector(X_plane_start + Default_plane_weight + 50, Y_plane_start);
+const Dot Left_corner  = Vector(X_plane_start, Y_plane_start, 0.0);
+const Dot Right_corner = Vector(X_plane_start + Default_plane_weight + 50, Y_plane_start, 0.0);
 
-
-//===============================================================================
-//LEFT COORD PLANE
-const Dot      left_plane_origin = Left_corner;
-const uint32_t left_plane_hight  = Default_plane_hight;
-const uint32_t left_plane_weight = Default_plane_weight;
-
-const Dot      left_axis_origin  = Vector(150.0, 800.0);
-const Vector   left_abscissa     = Vector(10.00, 0.00);
-const Vector   left_ordinate     = Vector(0.0, -10.0);
-
-//RIGHT COORD PLANE
-const Dot      right_plane_origin = Right_corner;
-const uint32_t right_plane_hight  = Default_plane_hight;
-const uint32_t right_plane_weight = Default_plane_weight;
-
-const Dot      right_axis_origin  = Vector(300.0, 500.0);
-const Vector   right_abscissa     = Vector(10.0, 0.0);
-const Vector   right_ordinate     = Vector(0.0, 10.0);
 
 //===============================================================================
 
