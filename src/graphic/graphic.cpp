@@ -5,11 +5,13 @@
 
 void Plane::DrawEmptyPlane(sf::RenderWindow &window) const
 {
-    sf::RectangleShape rect(sf::Vector2f((float)this->plane_weight_, 
-                                         (float)this->plane_hight_));
+    sf::RectangleShape rect(sf::Vector2f((float)this->plane_width_, 
+                                         (float)this->plane_height_));
 
     rect.setPosition((float)this->plane_origin_.GetX(), 
                      (float)this->plane_origin_.GetY());
+
+    rect.setFillColor(this->color_);
 
     window.draw(rect);
 
@@ -60,10 +62,10 @@ int Plane::CheckDotOnPlane(const Dot &dot) const
 {
 
     double left_border  = this->plane_origin_.GetX();
-    double right_border = this->plane_origin_.GetX() + (double)this->plane_weight_;
+    double right_border = this->plane_origin_.GetX() + (double)this->plane_width_;
     
     double up_border   = this->plane_origin_.GetY();
-    double down_border = this->plane_origin_.GetY() + (double)this->plane_hight_;
+    double down_border = this->plane_origin_.GetY() + (double)this->plane_height_;
 
     double dot_x = dot.GetX();
     double dot_y = dot.GetY();
@@ -142,19 +144,59 @@ void DrawLine(sf::RenderWindow &window,
    
 }
 
-void DrawCircle(sf::RenderWindow &window, const Dot &dot, 
+void DrawCircle(sf::RenderWindow &window, const Dot &pos, 
                 const float radius, const sf::Color color)
 {
 
     sf::CircleShape circle(radius);
     circle.setFillColor(color);
 
-    circle.setPosition((float)dot.GetX(), (float)dot.GetY());
+    circle.setPosition((float)pos.GetX(), (float)pos.GetY());
 
     window.draw(circle);
 
     return;
    
+}
+
+void DrawPixel(sf::RenderWindow &window, const Dot &pos, const sf::Color color)
+{
+
+    sf::RectangleShape pixel;
+    pixel.setSize({ 1.f, 1.f });
+    pixel.setFillColor(color);
+
+
+    pixel.setPosition((float)pos.GetX(), (float)pos.GetY());
+
+    window.draw(pixel);
+    
+    return;
+   
+}
+
+//================================================================================
+
+void    Plane::RenderSphere    (sf::RenderWindow &window, const Sphere &sphere)
+{
+    const double aspect = (double)plane_width_/(double)plane_height_;
+    for (size_t i = 0; i < plane_width_; ++i) 
+    {
+        for (size_t j = 0; j < plane_height_; ++j) 
+        {
+            double x = (double) i / (double) plane_width_  * 2.0 - 1.0;
+            double y = (double) j / (double) plane_height_ * 2.0 - 1.0;
+
+            x *= aspect;
+
+            //Vector dir = Vector(1, (double)x, (double)y).Normalization();
+            Vector dir = Vector((double)x, (double)y, 1).Normalization();
+
+            DrawPixel(window, Dot((double)i, (double)j, 0), sphere.RayCast(Dot(0.0, 0.0, -80.0), dir, this->color_));
+        }
+    }
+    
+    return;
 }
 
 //================================================================================

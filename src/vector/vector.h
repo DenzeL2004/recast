@@ -70,7 +70,7 @@ const Dot Null_dot = Vector(0.0, 0.0, 0.0);
 
 const Vector Unit_vector_x = Vector(1.0, 0.0, 0.0);
 const Vector Unit_vector_y = Vector(0.0, 1.0, 0.0);
-const Vector Unit_vector_y = Vector(0.0, 0.0, 1.0);
+const Vector Unit_vector_z = Vector(0.0, 0.0, 1.0);
 
 const Vector Err_vector    = Vector(NAN, NAN, NAN);
 

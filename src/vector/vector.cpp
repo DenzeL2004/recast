@@ -59,9 +59,7 @@ Vector& Vector::operator /= (const double scale)
 
 double Vector::Len () const
 {
-    double len = this->x_ * this->x_ + 
-                 this->y_ * this->y_ +
-                 this->z_ * this->z_;
+    double len = this->ScalarProduct(*this);
     
     len = sqrt(len);
 
@@ -75,7 +73,7 @@ Vector Vector::Normalization () const
 {
     double len = this->Len();
 
-    Vector res(this->x_ / len, this->y_ / len, this->z_ / len);
+    Vector res(*this / this->Len());
 
     return res;
 }
@@ -94,8 +92,9 @@ Vector Vector::Orthogonality2xy  () const
 
 double Vector::ScalarProduct (const Vector &vec) const
 {
-    return  vec.GetX() * this->GetX() + 
-            vec.GetY() * this->GetY();
+    return  vec.x_ * this->x_ + 
+            vec.y_ * this->y_ +
+            vec.z_ * this->z_;
 }
 
 //=======================================================================
