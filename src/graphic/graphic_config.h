@@ -29,4 +29,6 @@ const sf::Color Default_plane_color = sf::Color::White;
 const useconds_t Mouse_press_delay = 50U;
 
 
+
+
 #endif //#endif _GRAPHIC_CONFIG_H_

@@ -11,40 +11,15 @@ int main()
     #endif
 
 
-    sf::RenderWindow window(sf::VideoMode(Default_window_width, Default_window_height), "Sphere");
-
-
     Plane plane(Left_corner, Default_plane_height, Default_plane_width,
-                Null_dot, Vector(10.0, 0.0, 0.0), Vector(0.0, -10.0, 0.0));
+                Null_dot, Vector(10.0, 0.0, 0.0), Vector(0.0, -10.0, 0.0), sf::Color::Black);
 
+    std::vector<Light> lights = {Light(Vector(-2.0, -4.0, -30.0), 250.0), Light(Vector(5.0, 15.0, -20.0), 150.0)};
 
-    //plane.DrawEmptyPlane(window);
+    Vector camera(0.0, 0.0, -70.0);
 
-    Sphere sphere(Dot(-50.0, -10.0, 0.0), 10.0, sf::Color::Blue);
-
-    plane.RenderSphere(window, sphere);
-
-    char update_window_flag = TRUE;
-
-    sf::Event event;
-    while (window.isOpen())
-    {
-        
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-       
-
-        if (update_window_flag == TRUE)
-        {
-            window.display();
-            update_window_flag = FALSE;
-        }
-
-    }
+    Example(plane, lights, camera);
+    
     
 
     #ifdef USE_LOG

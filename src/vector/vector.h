@@ -39,6 +39,10 @@ class Vector
         double Corner        (const Vector &vec) const;
         double Len           ()                  const;
 
+        void   RotateX       (double const angle);
+        void   RotateY       (double const angle);
+        void   RotateZ       (double const angle); 
+
 
     private:     
         double x_;

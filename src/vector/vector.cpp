@@ -68,11 +68,50 @@ double Vector::Len () const
 
 //=======================================================================
 
+void Vector::RotateZ (double const angle) 
+{
+    double radian = angle * M_PI / 180.0;
+
+    double rotate_x = x_ * cos(radian) - y_ * sin(radian);
+    double rotate_y = x_ * sin(radian) + y_ * cos(radian);
+
+    x_ = rotate_x;
+    y_ = rotate_y;
+
+    return;
+}
+
+void Vector::RotateX (double const angle) 
+{
+    double radian = angle * M_PI / 180.0;
+
+    double rotate_y = y_ * cos(radian) - z_ * sin(radian);
+    double rotate_z = y_ * sin(radian) + z_ * cos(radian);
+
+    y_ = rotate_y;
+    z_ = rotate_z;
+
+    return;
+}
+
+void Vector::RotateY (double const angle) 
+{
+    double radian = angle * M_PI / 180.0;
+
+    double rotate_x =  x_ * cos(radian) + z_ * sin(radian);
+    double rotate_z = -x_ * sin(radian) + z_ * cos(radian);
+    
+    x_ = rotate_x;
+    z_ = rotate_z;
+
+    return;
+}
+
+//=======================================================================
+
 
 Vector Vector::Normalization () const
 {
-    double len = this->Len();
-
     Vector res(*this / this->Len());
 
     return res;

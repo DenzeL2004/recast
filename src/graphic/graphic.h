@@ -8,10 +8,10 @@
 #include "../log_info/log_errors.h"
 
 #include "../vector/vector.h"
-#include "../sphere/sphere.h"
+#include "color/color.h"
+#include "sphere/sphere.h"
 
 #include "../graphic/graphic_config.h"
-
 
 void    DrawLine        (sf::RenderWindow &window, 
                          const Dot &dot_begin, const Dot &dot_end, const sf::Color color_line);
@@ -43,7 +43,8 @@ class Plane
                                  const Dot &dot_start, const Vector &dir, 
                                  const sf::Color color_line = Default_vec_color) const;
 
-        void    RenderSphere    (sf::RenderWindow &window, const Sphere &spher);
+        void    RenderSphere    (sf::RenderWindow &window, const Vector &camera, 
+                                const Sphere &sphere, const std::vector<Light> &lights) const;
 
     private:
 
@@ -63,6 +64,9 @@ class Plane
         sf::Color color_; 
               
 };
+
+
+void    Example         (const Plane &plane, std::vector<Light> lights, const Vector camera);
 
 
 #endif //#endif _GRAPHIC_H_

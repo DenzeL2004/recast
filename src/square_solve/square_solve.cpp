@@ -20,8 +20,12 @@ char SolveSquare (double a, double b, double c, double *x1, double *x2){
             return _square_equation (a, b, c, x1, x2);
 
         case ONE_ROOT:
-            return _liner_equation (b, c, x1);
-
+        {   
+            _liner_equation (b, c, x1);
+            *x2 = *x1;
+            return 1;
+        }
+        
         case NO_ROOTS:
             return NO_ROOTS;
 
