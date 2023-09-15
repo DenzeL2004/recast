@@ -3,6 +3,8 @@
 #include "src/graphic/graphic.h"
 #include "src/graphic/graphic_config.h"
 
+#include "src/graphic/scene/scene.h"
+
 int main()
 {
      #ifdef USE_LOG
@@ -10,15 +12,43 @@ int main()
             return OPEN_FILE_LOG_ERR;
     #endif
 
+    sf::RenderWindow window(sf::VideoMode(Default_window_width, Default_window_height), "Sphere");
 
-    Plane plane(Left_corner, Default_plane_height, Default_plane_width,
-                Null_dot, Vector(10.0, 0.0, 0.0), Vector(0.0, -10.0, 0.0), sf::Color::Black);
+    Scene scene(Vector(0.0, 0.0, -80.0), Default_window_height, Default_window_width);
 
-    std::vector<Light> lights = {Light(Vector(-2.0, -4.0, -30.0), 250.0), Light(Vector(5.0, 15.0, -20.0), 150.0)};
+    Sphere sphere(Vector(200, 200, 0), 10.0, 0.1, Material( {0.1, 0, 0.1}, {0.7, 0, 0.7}, {1, 1, 1}, 400, 1));
+    Light light({5, 10, 10},
+                {1, 1, 1},
+                {1, 1, 1},
+                {1, 1, 1});
 
-    Vector camera(0.0, 0.0, -70.0);
+    scene.AddLight(light);
+    scene.AddSphere(sphere);
 
-    Example(plane, lights, camera);
+    scene.Render(window);
+
+    char update_window_flag = TRUE;
+
+
+    sf::Event event;
+    while (window.isOpen())
+    {   
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        
+        update_window_flag = TRUE;
+    
+        if (update_window_flag == TRUE)
+        {
+            window.display();
+            update_window_flag = FALSE;
+        }
+
+    }
+
     
     
 

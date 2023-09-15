@@ -12,7 +12,8 @@ class Vector
     public:
     
         Vector (double x, double y, double z): x_(x), y_(y), z_(z) {}
-        Vector (const Vector &src): x_(src.x_), y_(src.y_), z_(src.z_) {}
+
+        Vector (const Vector &srs) = default;
 
         ~Vector ()
         {
@@ -25,12 +26,17 @@ class Vector
         double GetY() const { return y_; }
         double GetZ() const { return z_; }
 
+        void SetX(const double x) { x_ = x; return;}
+        void SetY(const double y) { y_ = y; return;}
+        void SetZ(const double z) { z_ = z; return;}
 
         Vector& operator  = (const Vector &other);
         Vector& operator += (const Vector &other);
         Vector& operator -= (const Vector &other);
         Vector& operator *= (const double scale);
         Vector& operator /= (const double scale);
+
+        Vector& operator *= (const Vector &other);
 
         Vector Normalization    () const;
         Vector Orthogonality2xy () const;
@@ -55,6 +61,8 @@ Vector operator - (const Vector &vec1, const Vector &vec2);
 
 Vector operator * (const Vector &vec, const double scale);
 Vector operator * (const double scale, const Vector &vec);
+Vector operator * (const Vector &lhs,  const Vector &rhs);
+
 
 Vector operator / (const Vector &vec, const double scale);
 

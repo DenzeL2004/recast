@@ -10,13 +10,12 @@ FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equa
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 
-run:		obj/generals.o obj/log_errors.o obj/vector.o obj/sphere.o obj/color.o obj/graphic.o obj/square_solve.o obj/main.o
-	g++   	obj/generals.o obj/log_errors.o obj/vector.o obj/sphere.o obj/color.o obj/graphic.o obj/square_solve.o obj/main.o -o run  $(SFML_FLAGS)
+run:		obj/generals.o obj/log_errors.o obj/vector.o obj/sphere.o obj/graphic.o obj/scene.o obj/main.o
+	g++   	obj/generals.o obj/log_errors.o obj/vector.o obj/sphere.o obj/graphic.o obj/scene.o obj/main.o -o run  $(SFML_FLAGS)
 
 
 obj/main.o: main.cpp
 		g++ main.cpp -c -o obj/main.o $(FLAGS)
-
 
 
 obj/log_errors.o: src/log_info/log_errors.h src/log_info/log_errors.cpp
@@ -33,12 +32,8 @@ obj/vector.o: src/vector/vector.cpp src/vector/vector.h
 obj/sphere.o: src/graphic/sphere/sphere.cpp src/graphic/sphere/sphere.h
 		g++ src/graphic/sphere/sphere.cpp -c -o obj/sphere.o $(FLAGS) $(SFML_FLAGS)
 
-obj/color.o: src/graphic/color/color.cpp src/graphic/color/color.h
-		g++ src/graphic/color/color.cpp -c -o obj/color.o $(FLAGS) $(SFML_FLAGS)
-
-
-obj/square_solve.o: src/square_solve/square_solve.cpp src/square_solve/square_solve.h
-		g++ src/square_solve/square_solve.cpp -c -o obj/square_solve.o $(FLAGS)
+obj/scene.o: src/graphic/scene/scene.cpp src/graphic/scene/scene.h
+		g++ src/graphic/scene/scene.cpp -c -o obj/scene.o $(FLAGS)
 
 
 obj/graphic.o: src/graphic/graphic.cpp src/graphic/graphic.h src/graphic/graphic_config.h

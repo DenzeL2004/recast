@@ -57,6 +57,25 @@ Vector& Vector::operator /= (const double scale)
 
 //=======================================================================
 
+Vector& Vector::operator *= (const Vector &other)
+{
+    x_ *= other.x_;
+    y_ *= other.y_;
+    z_ *= other.z_;
+
+    return *this;
+}
+
+Vector operator * (const Vector &lhs, const Vector &rhs)
+{
+    Vector res = lhs;
+    res *= rhs;
+
+    return res;
+}
+
+//=======================================================================
+
 double Vector::Len () const
 {
     double len = this->ScalarProduct(*this);

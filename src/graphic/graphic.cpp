@@ -177,75 +177,12 @@ void DrawPixel(sf::RenderWindow &window, const Dot &pos, const sf::Color color)
 
 //================================================================================
 
-void    Plane::RenderSphere    (sf::RenderWindow &window, const Vector &camera, 
-                                const Sphere &sphere, const std::vector<Light> &lights) const
+sf::Color GetSFMLColor(const Vector &color)
 {
-    const double aspect = (double)plane_width_/(double)plane_height_;
-    for (size_t i = 0; i < plane_width_; ++i) 
-    {
-        for (size_t j = 0; j < plane_height_; ++j) 
-        {
-            double x = (double) i / (double) plane_width_  * 2.0 - 1.0;
-            double y = (double) j / (double) plane_height_ * 2.0 - 1.0;
 
-            x *= aspect;
-
-            Vector dir = Vector((double)x, (double)y, 1).Normalization();
-
-            MyColor color = sphere.RayCast(camera, dir, lights);
-            if (!color.IsErrColor())
-                DrawPixel(window, Dot((double)i, (double)j, 0), color.GetSFMLColor());
-        }
-    }
+    double red   = std::min(color.GetX(), 1.0);
+    double green = std::min(color.GetY(), 1.0);
+    double blue  = std::min(color.GetZ(), 1.0);
     
-    return;
+    return sf::Color((uint8_t) (red * 255.0), (uint8_t) (green * 255.0), (uint8_t) (blue * 255.0));
 }
-
-//================================================================================
-
-void Example(const Plane &plane, std::vector<Light> lights, const Vector camera)
-{
-    sf::RenderWindow window(sf::VideoMode(Default_window_width, Default_window_height), "Sphere");
-
-    Sphere sphere1(Dot(0.0, 0.0, 0.0), 20.0, 1000.0, MyColor(230.0, 0.0, 80.0, 255.0));
-    Sphere sphere2(Dot(-40.0, 10.0, 0.0), 10.0, 50.0, MyColor(0.0, 0.0, 230.0, 255.0));
-
-
-    char update_window_flag = TRUE;
-
-    const double rotate_angle = 3.0;
-
-    sf::Event event;
-    while (window.isOpen())
-    {   
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        plane.DrawEmptyPlane(window);
-        plane.RenderSphere(window, camera, sphere1, lights);
-        plane.RenderSphere(window, camera, sphere2, lights);
-
-        if (lights.size() != 0)
-        {
-            
-            lights[0].dir_.RotateX(rotate_angle);
-            lights[0].dir_.RotateY(rotate_angle);
-            lights[0].dir_.RotateZ(rotate_angle);
-
-            update_window_flag = TRUE;
-        }
-
-        if (update_window_flag == TRUE)
-        {
-            window.display();
-            update_window_flag = FALSE;
-        }
-
-    }
-}
-
-//================================================================================
-
